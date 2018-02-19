@@ -26,6 +26,10 @@
  *     ../images/ - relative to this CSS file.
  */
 
+/** WARP CSS **/
+.event-center a {
+	color: black;
+}
 
 /* GENERAL */
 

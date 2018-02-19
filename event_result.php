@@ -1,7 +1,11 @@
-<!doctype html>
+<?php header("Content-Type:text/html;charset=utf-8"); 
+    include("./backend/get_event_result.php") 
+?>
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+    <!-- <meta charset="utf-8"> -->
+    
     <title>BLOCKS - Bootstrap Dashboard Theme</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -71,19 +75,17 @@
             $('#clientCarousel').carousel('prev')
         });
 
-        
-        
         $('#click').click(function(){
             console.log('click');
             $.ajax({
                 type: 'get',
-                dataType: 'text',
+                dataType: 'html',
                 url: './backend/get_event_result.php',
                 data: {m:'event', tid:'1', eid:'2'},
                 success: function (data) {
-                    console.log(decodeURIComponent(data));
-                    
-                    $("#event_result_tbody").html(decodeURIComponent(data));
+                    console.log(data);
+                    $("#event_result_tbody").html("");
+                    $("#event_result_tbody").html(data);
                 },
                 error: function (request, status, error) {
                     console.log('code: '+request.status+"\n"+'message: '+request.responseText+"\n"+'error: '+error);
@@ -137,18 +139,19 @@
                 <table class="display table-striped">                    
                     <thead>                        
                         <tr>
-                            <th colspan="5" class="event-head">EVENT A</th>
+                            <th colspan="4" class="event-head">EVENT A</th>
                         </tr>
                         <tr>
                             <th>Rank</th>
                             <th>TeamName</th>
-                            <th>BaseScore</th>
-                            <th>ExtraScore</th>  
+                            <th>BaseScore(ExtraScore)</th>
                             <th>Win</th>                            
                         </tr>
                     </thead>
                     <tbody id="event_result_tbody">
-                        
+                        <?php 
+                            echo getEventResultWithEventId(2);
+                        ?>
                     </tbody>
                 </table>
             </div>
